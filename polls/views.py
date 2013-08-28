@@ -10,7 +10,7 @@ def index(request):
 
 def detail(request, poll_id):
     try:
-        poll = Poll.objects.get(pk=poll_id)
+        poll = Poll.objects.get(pk=poll_id, pub_date__lte=timezone.now())
     except Poll.DoesNotExist:
         raise Http404
     return render(request, 'polls/detail.html', {'poll': poll})
